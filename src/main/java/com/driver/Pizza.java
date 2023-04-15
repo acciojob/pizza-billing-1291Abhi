@@ -6,11 +6,11 @@ public class Pizza {
     private Boolean isVeg;
     private String bill;
 
-    private static int countExtraCheese=0;
+    private int countExtraCheese=0;
 
-    private static int countExtraTapping=0;
+    private int countExtraTapping=0;
 
-    private static int countTakeWay=0;
+    private int countTakeWay=0;
 
     public Pizza(Boolean isVeg){
         this.isVeg = isVeg;
@@ -57,6 +57,7 @@ public class Pizza {
             bill+="\nExtra Toppings Added: "+countExtraTapping*120;
         }
         bill+="\nPaperbag Added: "+countTakeWay*20;
+        bill+="\nTotal Price: "+getPrice();
 
         return this.bill;
     }
