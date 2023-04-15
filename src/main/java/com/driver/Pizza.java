@@ -50,12 +50,16 @@ public class Pizza {
     }
 
     public String getBill(){
+        if(countExtraCheese>0)
         this.bill=this.bill+"\nExtra Cheese Added: "+countExtraCheese*80;
-        if(isVeg.equals(true)){
-            bill+="\nExtra Toppings Added: "+countExtraTapping*70;
-        }else{
-            bill+="\nExtra Toppings Added: "+countExtraTapping*120;
+        if(countExtraTapping>0) {
+            if (isVeg.equals(true)) {
+                bill += "\nExtra Toppings Added: " + countExtraTapping * 70;
+            } else {
+                bill += "\nExtra Toppings Added: " + countExtraTapping * 120;
+            }
         }
+        if(countTakeWay>0)
         bill+="\nPaperbag Added: "+countTakeWay*20;
         bill+="\nTotal Price: "+getPrice();
 
