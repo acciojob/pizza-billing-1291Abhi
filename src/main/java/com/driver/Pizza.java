@@ -5,22 +5,34 @@ public class Pizza {
     private int price;
     private Boolean isVeg;
     private String bill;
+    private int basePrice;
+    private int vegBasePrice=300;
+    private int nonVegBasePrice=400;
+    private int cheesePrice=80;
 
-    private int countExtraCheese=0;
+    private int vegToppingPrice =70;
+    private int nonVegToppingPrice =120;
+    private int toppingPrice;
+    private int takeWayPrice=20;
 
-    private int countExtraTapping=0;
+    private boolean isCheeseAdded;
 
-    private int countTakeWay=0;
+    private boolean isToppingAdded;
+
+    private boolean isTakeWayAdded;
 
     public Pizza(Boolean isVeg){
         this.isVeg = isVeg;
         // your code goes here
-        if(isVeg.equals(true)){
-            this.price=300;
-        }
-        else
-            this.price=400;
-        this.bill="Base Price Of The Pizza: "+getPrice();
+        basePrice=getBasePrice();
+        price=basePrice;
+        isCheeseAdded=false;
+        isToppingAdded=false;
+        isTakeWayAdded=false;
+    }
+
+    private int getBasePrice(){
+        return isVeg?vegBasePrice:nonVegBasePrice;
     }
 
     public int getPrice(){
@@ -29,40 +41,48 @@ public class Pizza {
 
     public void addExtraCheese(){
         // your code goes here
-        price+=80;
-        countExtraCheese++;
+       if(!isCheeseAdded){
+           isCheeseAdded=true;
+           price+=cheesePrice;
+       }
     }
 
     public void addExtraToppings(){
         // your code goes here
-        if(isVeg.equals(true)){
-            price+=70;
-        }else {
-            price+=120;
+        if(!isToppingAdded){
+            isToppingAdded=true;
+            if(isVeg){
+                toppingPrice=vegToppingPrice;
+            }
+            else{
+                toppingPrice=nonVegToppingPrice;
+            }
+            price+=toppingPrice;
         }
-        countExtraTapping++;
+
     }
 
     public void addTakeaway(){
+
         // your code goes here
-        price+=20;
-        countTakeWay++;
+        if(!isTakeWayAdded){
+            isTakeWayAdded=true;
+            price+=takeWayPrice;
+        }
+
     }
 
     public String getBill(){
-        if(countExtraCheese>0)
-        this.bill=this.bill+"\nExtra Cheese Added: "+countExtraCheese*80;
-        if(countExtraTapping>0) {
-            if (isVeg.equals(true)) {
-                bill += "\nExtra Toppings Added: " + countExtraTapping * 70;
-            } else {
-                bill += "\nExtra Toppings Added: " + countExtraTapping * 120;
-            }
-        }
-        if(countTakeWay>0)
-        bill+="\nPaperbag Added: "+countTakeWay*20;
-        bill+="\nTotal Price: "+getPrice();
-
+        String var="";
+        var+="Base Price Of The Pizza: "+basePrice+"\n";
+        if(isCheeseAdded)
+            var+="Extra Cheese Added: "+cheesePrice+"\n";
+        if(isToppingAdded)
+            var+="Extra Toppings Added: "+toppingPrice+"\n";
+        if(isTakeWayAdded)
+            var+="Paperbag Added: "+takeWayPrice+"\n";
+        var+="Total Price: "+getPrice()+"\n";
+        this.bill=var;
         return this.bill;
     }
 }
